@@ -1,0 +1,61 @@
+<ui:composition template="/WEB-INF/template/layout-padrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:o="http://omnifaces.org/ui">
+
+
+	<ui:define name="corpo">
+		<h1>Cadastro de usuário</h1>
+
+
+		<h:form id="formulario">
+
+			<f:metadata>
+				<o:viewParam name="usuario" value="#{cadastroUsuarioBean.usuario}" />
+				<f:viewAction action="#{cadastroUsuarioBean.inicializar}" />
+			</f:metadata>
+
+			<p:toolbar style="margin-bottom:20px">
+				<f:facet name="left">
+					<p:button value="Novo" outcome="/usuarios/cadastro-usuario" />
+					<p:commandButton value="Salvar"
+						action="#{cadastroUsuarioBean.salvar}" update="formulario" />
+
+				</f:facet>
+
+				<f:facet name="right">
+					<p:button value="Pesquisar" outcome="/usuarios/pesquisa-usuario" />
+				</f:facet>
+
+			</p:toolbar>
+
+			<p:panelGrid columns="2">
+				<p:outputLabel value="Nome" />
+				<p:inputText value="#{cadastroUsuarioBean.usuario.nome}" />
+
+				<p:outputLabel value="E-mail" />
+				<p:inputText value="#{cadastroUsuarioBean.usuario.email}" />
+
+				<p:outputLabel for="senha1" value="Senha " />
+				<p:password value="#{cadastroUsuarioBean.usuario.senha}" id="senha1"
+					match="senha2" feedback="true" weakLabel="Fraca"
+					strongLabel="Forte" goodLabel="Boa" />
+
+				<p:outputLabel for="senha2" value="Confirmação senha" />
+				<p:password id="senha2" />
+
+
+				<p:outputLabel value="Ativo" />
+				<p:selectBooleanCheckbox
+					value="#{cadastroUsuarioBean.usuario.ativo}" />
+
+
+			</p:panelGrid>
+
+		</h:form>
+
+	</ui:define>
+</ui:composition>

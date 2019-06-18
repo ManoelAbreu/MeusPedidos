@@ -1,0 +1,42 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui">
+     
+	<h:head>
+	
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	</h:head>
+
+	<h:body>
+	
+	
+		<h1>Cadastro de Categoria</h1>
+
+		<p:messages autoUpdate="true" closable="true" />
+
+		<h:form>
+			
+			<p:toolbar style="margin-bottom:20px">
+				<f:facet name="left">
+					<p:button value="Novo" outcome="/cadastro-categoria"/>
+					<p:commandButton type="button" value="Salvar"/>
+				
+				</f:facet>
+				
+				<f:facet name="right">
+					<p:commandButton type="button" value="Pesquisar" />
+				</f:facet>
+			
+			</p:toolbar>
+		
+		
+			<p:panelGrid columns="2"  style="min-width:100%">
+				<p:outputLabel value="Descrição" />
+				<p:inputText style="width:50%" />
+			</p:panelGrid>
+			
+		</h:form>
+	 
+	</h:body>
+</html>
