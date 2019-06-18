@@ -1,0 +1,138 @@
+<ui:composition template="/WEB-INF/template/layout-padrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:o="http://omnifaces.org/ui">
+
+
+	<ui:define name="corpo">
+
+		<p:messages closable="true" showDetail="true" showSummary="false">
+			<p:autoUpdate />
+		</p:messages>
+
+		<h:form>
+			<f:metadata>
+				<f:viewAction action="#{cadastroClienteBean.inicializar}" />
+			</f:metadata>
+
+
+			<p:toolbar style="margin-bottom:20px">
+
+				<f:facet name="left">
+					<p:button value="Novo" outcome="/clientes/cadastro-cliente" />
+					<p:commandButton value="Salvar"
+						action="#{cadastroProdutoBean.salvar}" update="tabela" />
+					<p:commandButton value ="Adicionar Endereco" oncomplete="PF('cadastrarEndereco').show();"/>
+
+				</f:facet>
+
+				<f:facet name="right">
+					<p:button value="Pesquisar" outcome="/clientes/pesquisa-cliente" />
+				</f:facet>
+
+			</p:toolbar>
+
+			<p:panelGrid columns="2" style="margin: 10px 0">
+				<p:outputLabel value="Nome" for="nome" />
+				<p:inputText id="nome" value="#{cadastroClienteBean.cliente.nome}" />
+
+				<p:outputLabel value="E-mail" for="email" />
+				<p:inputText id="email" value="#{cadastroClienteBean.cliente.email}" />
+
+				<p:outputLabel value="Tipo" for="tipo" />
+				<p:inputText id="tipo"/>
+
+				<p:outputLabel value="CPF/CNPJ" for="doc" />
+				<p:inputText id="doc"
+					value="#{cadastroClienteBean.cliente.documento}" />
+
+			</p:panelGrid>
+
+			<p:dataTable id="tabela" value="#{cadastroClienteBean.enderecos}"
+				var="endereco" rows="10" paginator="true"
+				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15,25,50" paginatorPosition="bottom"
+				currentPageReportTemplate=" Página {currentPage} de {totalPages}"
+				emptyMessage="Nenhum registro encontrado">
+
+				<p:column headerText="id" style="text-align:center" width="10%">
+					<h:outputLabel value="#{endereco.id}" />
+				</p:column>
+
+				<p:column headerText="Estado">
+					<h:outputLabel value="#{endereco.estado}" />
+				</p:column>
+
+				<p:column headerText="Cidade">
+					<h:outputLabel value="#{endereco.cidade}" />
+				</p:column>
+
+				<p:column headerText="CEP">
+					<h:outputLabel value="#{endereco.cep}" />
+				</p:column>
+
+				<p:column headerText="Logradouro">
+					<h:outputLabel value="#{endereco.logradouro}" />
+				</p:column>
+
+				<p:column headerText="Numero">
+					<h:outputLabel value="#{endereco.numero}" />
+				</p:column>
+
+				<p:column headerText="Complemento">
+					<h:outputLabel value="#{endereco.complemento}" />
+				</p:column>
+
+
+
+			
+			</p:dataTable>
+
+			<p:confirmDialog header="Acidionar Endereco" showEffect="fade"
+				hideEffect="fade" message="Adicionar Endereco"
+				widgetVar="cadastrarEndereco">
+
+				<p:panelGrid columns="2" >
+
+					<p:outputLabel value="Estado" for="estado" />
+					<p:inputText id="estado"
+						value="#{cadastroClienteBean.endereco.estado}" />
+
+					<p:outputLabel value="Cidade" for="cidade" />
+					<p:inputText id="cidade"
+						value="#{cadastroClienteBean.endereco.cidade}" />
+
+					<p:outputLabel value="CEP" for="cep" />
+					<p:inputText id="cep" value="#{cadastroClienteBean.endereco.cep}" />
+
+					<p:outputLabel value="Número" for="numero" />
+					<p:inputText id="numero"
+						value="#{cadastroClienteBean.endereco.numero}" />
+
+					<p:outputLabel value="Logradouro" for="logradouro" />
+					<p:inputText id="logradouro"
+						value="#{cadastroClienteBean.endereco.logradouro}" />
+
+					<p:outputLabel value="complemento" for="complemento" />
+					<p:inputText id="complemento"
+						value="#{cadastroClienteBean.endereco.complemento}" />
+
+					<p:commandButton action="#{cadastroClienteBean.adicionarEndereco}"
+						 value="Adicionar" update="tabela"
+						oncomplete="PF('cadastrarEndereco').hide(); return false;" />
+
+					<p:button value="Cancelar"
+						onclick="PF('cadastrarEndereco').hide(); return false;" />
+
+				</p:panelGrid>
+			</p:confirmDialog>
+
+
+			
+
+		</h:form>
+	</ui:define>
+</ui:composition>

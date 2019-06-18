@@ -8,13 +8,13 @@ import br.senac.sc.meuspedidos.model.Cliente;
 public class ClienteDao implements DaoI<Cliente> {
 
 	@Override
-	public Cliente salvar(Cliente obj) {
-		// TODO Auto-generated method stub
+	public Cliente salvar(Cliente cliente) {
+		System.out.println("chegou aki  !!!!");
 		return null;
 	}
 
 	@Override
-	public void deletar(Cliente obj) {
+	public void deletar(Cliente cliente) {
 		// TODO Auto-generated method stub
 		
 	}

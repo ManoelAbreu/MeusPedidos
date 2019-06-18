@@ -1,5 +1,6 @@
 package br.senac.sc.meuspedidos.bean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -19,24 +20,55 @@ public class CadastroClienteBean {
 
 	private List<Endereco> enderecos;
 	
+	private Endereco endereco;
+	
 	public void inicializar() {
 		if (cliente == null) {
 			cliente = new Cliente();
 		}
+		if(endereco == null) {
+			endereco = new Endereco();
+		}
+		enderecos = new ArrayList<>();
 		clienteDao = new ClienteDao();
 	}
 
 	public void salvar() {
-		
+		if(!enderecos.isEmpty()) {
+			cliente.setEnderecos(enderecos);
+		}
 		clienteDao.salvar(cliente);
 		
-		
-		
+	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
+	public List<Endereco> getEnderecos() {
+		return enderecos;
+	}
+
+	public void setEnderecos(List<Endereco> enderecos) {
+		this.enderecos = enderecos;
+	}
+
+	public Endereco getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
 	}
 	
 	
-	
-	
-	
-	
+	public void adicionarEndereco() {
+		enderecos.add(endereco);
+		endereco = null;
+		endereco = new Endereco();
+	}
 }
