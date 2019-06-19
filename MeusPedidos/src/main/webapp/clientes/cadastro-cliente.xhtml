@@ -25,7 +25,8 @@
 					<p:button value="Novo" outcome="/clientes/cadastro-cliente" />
 					<p:commandButton value="Salvar"
 						action="#{cadastroProdutoBean.salvar}" update="tabela" />
-					<p:commandButton value ="Adicionar Endereco" oncomplete="PF('cadastrarEndereco').show();"/>
+					<p:commandButton value="Adicionar Endereco"
+						oncomplete="PF('cadastrarEndereco').show();" />
 
 				</f:facet>
 
@@ -43,7 +44,7 @@
 				<p:inputText id="email" value="#{cadastroClienteBean.cliente.email}" />
 
 				<p:outputLabel value="Tipo" for="tipo" />
-				<p:inputText id="tipo"/>
+				<p:inputText id="tipo" />
 
 				<p:outputLabel value="CPF/CNPJ" for="doc" />
 				<p:inputText id="doc"
@@ -86,16 +87,45 @@
 					<h:outputLabel value="#{endereco.complemento}" />
 				</p:column>
 
+				<p:column style="width:80px">
+
+					<h:outputLabel>
+						<p:button icon="ui-icon-pencil" title="editar">
+						</p:button>
+
+						<p:commandButton icon="ui-icon-trash" title="excluir"
+							oncomplete="PF('confirmacaoExclusao').show();">
+							<f:setPropertyActionListener value="#{l}"
+								target="#{pesquisaCategoriaBean.categoriaSelecionada}" />
+						</p:commandButton>
+
+					</h:outputLabel>
+
+				</p:column>
 
 
-			
+
 			</p:dataTable>
+
+			<p:confirmDialog header="Exclusão de cliente" showEffect="fade"
+				hideEffect="fade"
+				message="Tem certeza que deseja excluir essa cliente ?"
+				widgetVar="confirmacaoExclusao">
+
+				<p:commandButton value="Sim" icon="ui-icon-check" iconPos="right"
+					action="#{cadastroClienteBean.removerEndereco}" update="tabela"
+					oncomplete="PF('confirmacaoExclusao').hide(); return false;" />
+
+				<p:button value="Não"
+					onclick="PF('confirmacaoExclusao').hide(); return false;"
+					icon="ui-icon-close" iconPos="right" />
+			</p:confirmDialog>
 
 			<p:confirmDialog header="Acidionar Endereco" showEffect="fade"
 				hideEffect="fade" message="Adicionar Endereco"
 				widgetVar="cadastrarEndereco">
 
-				<p:panelGrid columns="2" >
+				<p:panelGrid columns="2">
 
 					<p:outputLabel value="Estado" for="estado" />
 					<p:inputText id="estado"
@@ -121,7 +151,7 @@
 						value="#{cadastroClienteBean.endereco.complemento}" />
 
 					<p:commandButton action="#{cadastroClienteBean.adicionarEndereco}"
-						 value="Adicionar" update="tabela"
+						value="Adicionar" update="tabela"
 						oncomplete="PF('cadastrarEndereco').hide(); return false;" />
 
 					<p:button value="Cancelar"
@@ -129,9 +159,6 @@
 
 				</p:panelGrid>
 			</p:confirmDialog>
-
-
-			
 
 		</h:form>
 	</ui:define>

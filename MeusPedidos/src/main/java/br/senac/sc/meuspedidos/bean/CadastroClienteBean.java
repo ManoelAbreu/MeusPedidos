@@ -71,4 +71,12 @@ public class CadastroClienteBean {
 		endereco = null;
 		endereco = new Endereco();
 	}
+	
+	
+	public void removerEndereco() {
+		
+		
+		enderecos.contains(endereco);
+		
+	}
 }
