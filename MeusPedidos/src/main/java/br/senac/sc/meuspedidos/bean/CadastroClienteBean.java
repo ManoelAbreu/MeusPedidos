@@ -34,7 +34,13 @@ public class CadastroClienteBean {
 		if (endereco == null) {
 			endereco = new Endereco();
 		}
+		
 		enderecos = new ArrayList<>();
+		
+		if(cliente.getEnderecos() != null) {
+			enderecos = cliente.getEnderecos();
+		}
+			
 		clienteDao = new ClienteDao();
 	}
 

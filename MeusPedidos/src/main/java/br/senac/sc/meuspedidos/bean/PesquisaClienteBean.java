@@ -73,5 +73,16 @@ public class PesquisaClienteBean {
 		return enderecos;
 
 	}
+	
+	public void pesquisarPorNome(){
+		
+		if(cliente.getNome().isEmpty()) {
+			listar();
+		}else {
+			clientes = clienteDao.listarPorNome(cliente.getNome());
+		}
+		
+		
+	}
 
 }

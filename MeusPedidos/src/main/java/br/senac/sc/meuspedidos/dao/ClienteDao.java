@@ -72,7 +72,7 @@ public class ClienteDao implements DaoI<Cliente> {
 	@Override
 	public List<Cliente> listarPorNome(String txt) {
 		EntityManager manager = JpaUtil.getEntityManager();
-		TypedQuery<Cliente> query = manager.createQuery("from Cliente where descricao LIKE :nome", Cliente.class);
+		TypedQuery<Cliente> query = manager.createQuery("from Cliente where nome LIKE :nome", Cliente.class);
 		query.setParameter("nome", "%"+ txt +"%");
 		try {
 			return query.getResultList();
