@@ -13,7 +13,7 @@
 			<p:autoUpdate />
 		</p:messages>
 
-		<h:form>
+		<h:form id="formulario">
 			<f:metadata>
 				<f:viewAction action="#{cadastroClienteBean.inicializar}" />
 			</f:metadata>
@@ -24,7 +24,8 @@
 				<f:facet name="left">
 					<p:button value="Novo" outcome="/clientes/cadastro-cliente" />
 					<p:commandButton value="Salvar"
-						action="#{cadastroProdutoBean.salvar}" update="tabela" />
+						action="#{cadastroClienteBean.salvar}" update="formulario" />
+
 					<p:commandButton value="Adicionar Endereco"
 						oncomplete="PF('cadastrarEndereco').show();" />
 
@@ -43,8 +44,12 @@
 				<p:outputLabel value="E-mail" for="email" />
 				<p:inputText id="email" value="#{cadastroClienteBean.cliente.email}" />
 
-				<p:outputLabel value="Tipo" for="tipo" />
-				<p:inputText id="tipo" />
+				<p:outputLabel value="Tipo" />
+				<p:selectOneMenu value="#{cadastroClienteBean.cliente.tipo}">
+					<f:selectItem itemLabel="Selecione um tipo" itemValue=""
+						noSelectionOption="true" />
+					<f:selectItems value="#{cadastroClienteBean.tipoPessoa}" />
+				</p:selectOneMenu>
 
 				<p:outputLabel value="CPF/CNPJ" for="doc" />
 				<p:inputText id="doc"
@@ -90,13 +95,16 @@
 				<p:column style="width:80px">
 
 					<h:outputLabel>
-						<p:button icon="ui-icon-pencil" title="editar">
-						</p:button>
+						<p:commandButton icon="ui-icon-pencil" title="editar"
+							action="#{cadastroClienteBean.teste}" update="tabela formulario2"
+						 	oncomplete="PF('cadastrarEndereco').show();">
+							<f:setPropertyActionListener value="#{endereco}" target="#{cadastroClienteBean.endereco}" />
+						</p:commandButton>
 
 						<p:commandButton icon="ui-icon-trash" title="excluir"
 							oncomplete="PF('confirmacaoExclusao').show();">
-							<f:setPropertyActionListener value="#{l}"
-								target="#{pesquisaCategoriaBean.categoriaSelecionada}" />
+							<f:setPropertyActionListener value="#{endereco}"
+								target="#{cadastroClienteBean.endereco}" />
 						</p:commandButton>
 
 					</h:outputLabel>
@@ -113,7 +121,7 @@
 				widgetVar="confirmacaoExclusao">
 
 				<p:commandButton value="Sim" icon="ui-icon-check" iconPos="right"
-					action="#{cadastroClienteBean.removerEndereco}" update="tabela"
+					action="#{cadastroClienteBean.removerEndereco}" update="formulario"
 					oncomplete="PF('confirmacaoExclusao').hide(); return false;" />
 
 				<p:button value="Não"
@@ -121,6 +129,11 @@
 					icon="ui-icon-close" iconPos="right" />
 			</p:confirmDialog>
 
+
+
+		</h:form>
+		
+		<h:form id="formulario2">
 			<p:confirmDialog header="Acidionar Endereco" showEffect="fade"
 				hideEffect="fade" message="Adicionar Endereco"
 				widgetVar="cadastrarEndereco">
@@ -151,15 +164,14 @@
 						value="#{cadastroClienteBean.endereco.complemento}" />
 
 					<p:commandButton action="#{cadastroClienteBean.adicionarEndereco}"
-						value="Adicionar" update="tabela"
+						value="Adicionar" update="formulario formulario2"
 						oncomplete="PF('cadastrarEndereco').hide(); return false;" />
 
-					<p:button value="Cancelar"
-						onclick="PF('cadastrarEndereco').hide(); return false;" />
+					<p:button value="Cancelar" onclick="PF('cadastrarEndereco').hide(); return false;" />
 
 				</p:panelGrid>
 			</p:confirmDialog>
-
 		</h:form>
+
 	</ui:define>
 </ui:composition>

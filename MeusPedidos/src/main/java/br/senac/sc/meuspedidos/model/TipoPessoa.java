@@ -2,6 +2,18 @@ package br.senac.sc.meuspedidos.model;
 
 public enum TipoPessoa {
 
-	FISICA, JURIDICA;
+	FISICA("Fisica"),
+	JURIDICA("Juridica");
 	
+	private String descricao;
+	
+	TipoPessoa(String descricao){
+		this.descricao = descricao;
+	}
+	
+	public String getGetDescricao() {
+		return descricao;
+	}
+
+
 }
